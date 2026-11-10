@@ -1,0 +1,1881 @@
+{
+    "name": "Integration HTTP",
+    "flow": [
+        {
+            "id": 1,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "authenticationType": "noAuth",
+                "tlsType": ""
+            },
+            "mapper": {
+                "url": "https://api.openwebninja.com/jsearch/search-v2",
+                "method": "get",
+                "headers": [
+                    {
+                        "name": "x-api-key",
+                        "value": "***"
+                    }
+                ],
+                "queryParameters": [
+                    {
+                        "name": "query",
+                        "value": "data analyst, nord, pas de calais"
+                    },
+                    {
+                        "name": "country",
+                        "value": "fr"
+                    },
+                    {
+                        "name": "date_posted",
+                        "value": "month"
+                    },
+                    {
+                        "name": "num_pages",
+                        "value": "1"
+                    }
+                ],
+                "parseResponse": true,
+                "stopOnHttpError": true,
+                "timeout": "40",
+                "allowRedirects": true,
+                "shareCookies": false,
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 85,
+                    "y": 183
+                },
+                "setupValidation": {
+                    "version": 1,
+                    "configuration": "e73b31a611402cc2",
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    }
+                },
+                "restore": {
+                    "parameters": {
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        },
+                        "tlsType": {
+                            "label": "Empty"
+                        }
+                    },
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "queryParameters": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        },
+                        "contentType": {
+                            "label": "Empty"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKeyConnection",
+                                "basicAuthConnection",
+                                "oAuth",
+                                "apiKey",
+                                "basicAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "type": "array",
+                        "label": "Headers",
+                        "spec": {
+                            "name": "value",
+                            "label": "Header",
+                            "type": "collection",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "label": "Name",
+                                    "type": "text",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "label": "Value",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "queryParameters",
+                        "type": "array",
+                        "label": "Query parameters",
+                        "spec": {
+                            "name": "value",
+                            "label": "Parameter",
+                            "type": "collection",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "label": "Name",
+                                    "type": "text",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "label": "Value",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "min": 1,
+                            "max": 300
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "label": "Data",
+                        "type": "any"
+                    },
+                    {
+                        "name": "statusCode",
+                        "label": "Status Code",
+                        "type": "number"
+                    },
+                    {
+                        "name": "headers",
+                        "label": "Headers",
+                        "type": "collection",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "label": "Content-Length",
+                                "type": "text"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "label": "Content-Encoding",
+                                "type": "text"
+                            },
+                            {
+                                "name": "content-type",
+                                "label": "Content-Type",
+                                "type": "text"
+                            },
+                            {
+                                "name": "server",
+                                "label": "Server",
+                                "type": "text"
+                            },
+                            {
+                                "name": "cache-control",
+                                "label": "Cache-Control",
+                                "type": "text"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "label": "Set-Cookie",
+                                "type": "array",
+                                "spec": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "builtin:BasicFeeder",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "array": "{{1.data.data.jobs}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 63,
+                    "y": -71
+                },
+                "setupValidation": {
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    },
+                    "version": 1,
+                    "configuration": "61f98e645abda33f"
+                },
+                "restore": {
+                    "expect": {
+                        "array": {
+                            "mode": "edit"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "mode": "edit",
+                        "name": "array",
+                        "spec": [],
+                        "type": "array",
+                        "label": "Array"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 10,
+            "module": "google-sheets:filterRows",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 12866675
+            },
+            "mapper": {
+                "from": "drive",
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING",
+                "limit": "1",
+                "spreadsheetId": "16jBlRScGBSfx2muKxGJAwpRw3TzEBsWKgVq6G40K9Fw",
+                "sheetId": "Sheet1",
+                "includesHeaders": true,
+                "tableFirstRow": "A1:CZ1",
+                "filter": [
+                    [
+                        {
+                            "a": "G",
+                            "o": "text:equal",
+                            "b": "{{3.job_apply_link}}"
+                        }
+                    ]
+                ],
+                "sortOrder": "asc"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 319,
+                    "y": -196
+                },
+                "setupValidation": {
+                    "version": 1,
+                    "configuration": "9ab7896c033e6e0b",
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    }
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "Hélène's Google connection (helene.debrabandere@gmail.com)",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "from": {
+                            "label": "Select from My Drive"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        },
+                        "spreadsheetId": {
+                            "mode": "chose",
+                            "label": "Suivi candidatures Data Analyst"
+                        },
+                        "sheetId": {
+                            "mode": "chose",
+                            "label": "Sheet1"
+                        },
+                        "includesHeaders": {
+                            "mode": "chose",
+                            "label": "Yes"
+                        },
+                        "tableFirstRow": {
+                            "label": "A-CZ"
+                        },
+                        "orderBy": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "sortOrder": {
+                            "mode": "chose",
+                            "label": "Ascending"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "select",
+                        "label": "Spreadsheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tableFirstRow",
+                        "type": "select",
+                        "label": "Column range",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "A1:Z1",
+                                "A1:BZ1",
+                                "A1:CZ1",
+                                "A1:DZ1",
+                                "A1:MZ1",
+                                "A1:ZZ1",
+                                "A1:AZZ1",
+                                "A1:BZZ1",
+                                "A1:CZZ1",
+                                "A1:DZZ1",
+                                "A1:MZZ1",
+                                "A1:ZZZ1"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "type": "filter",
+                        "label": "Filter",
+                        "options": "rpc://google-sheets/2/rpcGetFilterKeys?includesHeaders=true"
+                    },
+                    {
+                        "name": "orderBy",
+                        "type": "select",
+                        "label": "Order by"
+                    },
+                    {
+                        "name": "sortOrder",
+                        "type": "select",
+                        "label": "Sort order",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "label": "Total number of bundles",
+                        "type": "uinteger"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "label": "Bundle order position",
+                        "type": "uinteger"
+                    },
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "label": "Row number",
+                        "type": "number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "label": "Spreadsheet ID",
+                        "type": "text"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "label": "Sheet",
+                        "type": "text"
+                    },
+                    {
+                        "name": "0",
+                        "label": "date_publication (A)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "1",
+                        "label": "intitule (B)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "2",
+                        "label": "entreprise (C)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "3",
+                        "label": "lieu (D)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "4",
+                        "label": "type_de_contrat (E)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "5",
+                        "label": "site_d'origine_de_l'offre (F)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "6",
+                        "label": "lien  (G)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "7",
+                        "label": "status (H)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "8",
+                        "label": "date_de_candidature (I)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "9",
+                        "label": "notes (J)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "10",
+                        "label": "(K)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "11",
+                        "label": "(L)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "12",
+                        "label": "(M)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "13",
+                        "label": "(N)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "14",
+                        "label": "(O)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "15",
+                        "label": "(P)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "16",
+                        "label": "(Q)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "17",
+                        "label": "(R)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "18",
+                        "label": "(S)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "19",
+                        "label": "(T)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "20",
+                        "label": "(U)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "21",
+                        "label": "(V)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "22",
+                        "label": "(W)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "23",
+                        "label": "(X)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "24",
+                        "label": "(Y)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "25",
+                        "label": "(Z)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "26",
+                        "label": "(AA)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "27",
+                        "label": "(AB)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "28",
+                        "label": "(AC)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "29",
+                        "label": "(AD)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "30",
+                        "label": "(AE)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "31",
+                        "label": "(AF)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "32",
+                        "label": "(AG)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "33",
+                        "label": "(AH)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "34",
+                        "label": "(AI)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "35",
+                        "label": "(AJ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "36",
+                        "label": "(AK)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "37",
+                        "label": "(AL)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "38",
+                        "label": "(AM)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "39",
+                        "label": "(AN)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "40",
+                        "label": "(AO)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "41",
+                        "label": "(AP)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "42",
+                        "label": "(AQ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "43",
+                        "label": "(AR)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "44",
+                        "label": "(AS)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "45",
+                        "label": "(AT)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "46",
+                        "label": "(AU)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "47",
+                        "label": "(AV)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "48",
+                        "label": "(AW)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "49",
+                        "label": "(AX)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "50",
+                        "label": "(AY)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "51",
+                        "label": "(AZ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "52",
+                        "label": "(BA)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "53",
+                        "label": "(BB)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "54",
+                        "label": "(BC)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "55",
+                        "label": "(BD)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "56",
+                        "label": "(BE)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "57",
+                        "label": "(BF)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "58",
+                        "label": "(BG)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "59",
+                        "label": "(BH)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "60",
+                        "label": "(BI)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "61",
+                        "label": "(BJ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "62",
+                        "label": "(BK)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "63",
+                        "label": "(BL)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "64",
+                        "label": "(BM)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "65",
+                        "label": "(BN)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "66",
+                        "label": "(BO)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "67",
+                        "label": "(BP)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "68",
+                        "label": "(BQ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "69",
+                        "label": "(BR)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "70",
+                        "label": "(BS)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "71",
+                        "label": "(BT)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "72",
+                        "label": "(BU)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "73",
+                        "label": "(BV)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "74",
+                        "label": "(BW)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "75",
+                        "label": "(BX)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "76",
+                        "label": "(BY)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "77",
+                        "label": "(BZ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "78",
+                        "label": "(CA)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "79",
+                        "label": "(CB)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "80",
+                        "label": "(CC)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "81",
+                        "label": "(CD)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "82",
+                        "label": "(CE)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "83",
+                        "label": "(CF)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "84",
+                        "label": "(CG)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "85",
+                        "label": "(CH)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "86",
+                        "label": "(CI)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "87",
+                        "label": "(CJ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "88",
+                        "label": "(CK)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "89",
+                        "label": "(CL)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "90",
+                        "label": "(CM)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "91",
+                        "label": "(CN)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "92",
+                        "label": "(CO)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "93",
+                        "label": "(CP)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "94",
+                        "label": "(CQ)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "95",
+                        "label": "(CR)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "96",
+                        "label": "(CS)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "97",
+                        "label": "(CT)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "98",
+                        "label": "(CU)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "99",
+                        "label": "(CV)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "100",
+                        "label": "(CW)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "101",
+                        "label": "(CX)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "102",
+                        "label": "(CY)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "103",
+                        "label": "(CZ)",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "google-sheets:addRow",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 12866675
+            },
+            "filter": {
+                "name": "pas de doublons",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{10.`__IMTLENGTH__`}}",
+                            "o": "text:equal",
+                            "b": "0"
+                        }
+                    ]
+                ]
+            },
+            "mapper": {
+                "mode": "select",
+                "insertUnformatted": false,
+                "valueInputOption": "USER_ENTERED",
+                "insertDataOption": "INSERT_ROWS",
+                "from": "drive",
+                "spreadsheetId": "/16jBlRScGBSfx2muKxGJAwpRw3TzEBsWKgVq6G40K9Fw",
+                "sheetId": "Sheet1",
+                "includesHeaders": true,
+                "useColumnHeaders": false,
+                "values": {
+                    "0": "{{ifempty(formatDate(3.job_posted_at_timestamp; \" DD/MM/YYYY\"); \" Non_communiqué\")}}",
+                    "1": "{{ifempty(3.job_title; \" Non_communiqué\")}}",
+                    "2": "{{ifempty(3.employer_name; \" Non_communiqué\")}}",
+                    "3": "{{ifempty(3.job_city; \" Non_communiqué\")}}",
+                    "4": "{{ifempty(3.job_employment_type; \" Non_communiqué\")}}",
+                    "5": "{{ifempty(3.employer_website; \" Non_communiqué\")}}",
+                    "6": "{{ifempty(3.job_apply_link; \"Non_communiqué\")}}"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": -100
+                },
+                "setupValidation": {
+                    "version": 1,
+                    "configuration": "1b04863363af4c6a",
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    }
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "Hélène's Google connection (helene.debrabandere@gmail.com)",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "mode": {
+                            "label": "Search by path"
+                        },
+                        "insertUnformatted": {
+                            "mode": "chose"
+                        },
+                        "valueInputOption": {
+                            "mode": "chose",
+                            "label": "User entered"
+                        },
+                        "insertDataOption": {
+                            "mode": "chose",
+                            "label": "Insert rows"
+                        },
+                        "from": {
+                            "label": "My Drive"
+                        },
+                        "spreadsheetId": {
+                            "path": [
+                                "Suivi candidatures Data Analyst"
+                            ]
+                        },
+                        "sheetId": {
+                            "label": "Sheet1"
+                        },
+                        "includesHeaders": {
+                            "label": "Yes"
+                        },
+                        "useColumnHeaders": {
+                            "label": "No"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "mode",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "select",
+                                "fromAll",
+                                "map"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "insertUnformatted",
+                        "type": "boolean",
+                        "label": "Unformatted",
+                        "required": true
+                    },
+                    {
+                        "name": "valueInputOption",
+                        "type": "select",
+                        "label": "Value input option",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "USER_ENTERED",
+                                "RAW"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "insertDataOption",
+                        "type": "select",
+                        "label": "Insert data option",
+                        "validate": {
+                            "enum": [
+                                "INSERT_ROWS",
+                                "OVERWRITE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "file",
+                        "label": "Spreadsheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "useColumnHeaders",
+                        "type": "select",
+                        "label": "Use column headers as IDs of the columns",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "values",
+                        "type": "collection",
+                        "label": "Values in columns",
+                        "metadata": [
+                            [
+                                [
+                                    "date_publication",
+                                    "intitule",
+                                    "entreprise",
+                                    "lieu",
+                                    "type_de_contrat",
+                                    "site_d'origine_de_l'offre",
+                                    " lien ",
+                                    "status",
+                                    "date_de_candidature",
+                                    "notes"
+                                ]
+                            ]
+                        ],
+                        "spec": [
+                            {
+                                "name": "0",
+                                "type": "text",
+                                "label": "date_publication (A)"
+                            },
+                            {
+                                "name": "1",
+                                "type": "text",
+                                "label": "intitule (B)"
+                            },
+                            {
+                                "name": "2",
+                                "type": "text",
+                                "label": "entreprise (C)"
+                            },
+                            {
+                                "name": "3",
+                                "type": "text",
+                                "label": "lieu (D)"
+                            },
+                            {
+                                "name": "4",
+                                "type": "text",
+                                "label": "type_de_contrat (E)"
+                            },
+                            {
+                                "name": "5",
+                                "type": "text",
+                                "label": "site_d'origine_de_l'offre (F)"
+                            },
+                            {
+                                "name": "6",
+                                "type": "text",
+                                "label": "lien  (G)"
+                            },
+                            {
+                                "name": "7",
+                                "type": "text",
+                                "label": "status (H)"
+                            },
+                            {
+                                "name": "8",
+                                "type": "text",
+                                "label": "date_de_candidature (I)"
+                            },
+                            {
+                                "name": "9",
+                                "type": "text",
+                                "label": "notes (J)"
+                            },
+                            {
+                                "name": "10",
+                                "type": "text",
+                                "label": "(K)"
+                            },
+                            {
+                                "name": "11",
+                                "type": "text",
+                                "label": "(L)"
+                            },
+                            {
+                                "name": "12",
+                                "type": "text",
+                                "label": "(M)"
+                            },
+                            {
+                                "name": "13",
+                                "type": "text",
+                                "label": "(N)"
+                            },
+                            {
+                                "name": "14",
+                                "type": "text",
+                                "label": "(O)"
+                            },
+                            {
+                                "name": "15",
+                                "type": "text",
+                                "label": "(P)"
+                            },
+                            {
+                                "name": "16",
+                                "type": "text",
+                                "label": "(Q)"
+                            },
+                            {
+                                "name": "17",
+                                "type": "text",
+                                "label": "(R)"
+                            },
+                            {
+                                "name": "18",
+                                "type": "text",
+                                "label": "(S)"
+                            },
+                            {
+                                "name": "19",
+                                "type": "text",
+                                "label": "(T)"
+                            },
+                            {
+                                "name": "20",
+                                "type": "text",
+                                "label": "(U)"
+                            },
+                            {
+                                "name": "21",
+                                "type": "text",
+                                "label": "(V)"
+                            },
+                            {
+                                "name": "22",
+                                "type": "text",
+                                "label": "(W)"
+                            },
+                            {
+                                "name": "23",
+                                "type": "text",
+                                "label": "(X)"
+                            },
+                            {
+                                "name": "24",
+                                "type": "text",
+                                "label": "(Y)"
+                            },
+                            {
+                                "name": "25",
+                                "type": "text",
+                                "label": "(Z)"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:MakeRequest",
+            "version": 4,
+            "parameters": {
+                "tlsType": "",
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "***",
+                "method": "post",
+                "timeout": "40",
+                "contentType": "multipart",
+                "shareCookies": false,
+                "parseResponse": true,
+                "allowRedirects": true,
+                "stopOnHttpError": true,
+                "multipartBodyContent": [
+                    {
+                        "name": "content",
+                        "value": "{{3.job_title}}{{3.job_location}}{{3.job_apply_link}} {{3.job_posted_at_timestamp}}",
+                        "multipartFieldType": "text"
+                    }
+                ],
+                "requestCompressedContent": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 597,
+                    "y": 185
+                },
+                "setupValidation": {
+                    "version": 1,
+                    "configuration": "a9941cbaa15ab379",
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    }
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "contentType": {
+                            "label": "multipart/form-data (supports file uploads)Enter files and form data as key-value pairs."
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "paginationType": {
+                            "label": "Empty"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "multipartBodyContent": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "multipartFieldType": {
+                                        "mode": "chose",
+                                        "label": "Text"
+                                    }
+                                }
+                            ]
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "tlsType": {
+                            "label": "Empty"
+                        },
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKeyConnection",
+                                "basicAuthConnection",
+                                "oAuth",
+                                "apiKey",
+                                "basicAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "multipartBodyContent",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "multipartFieldType",
+                                    "type": "select",
+                                    "label": "Field type",
+                                    "options": [
+                                        {
+                                            "label": "Text",
+                                            "value": "text",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "File",
+                                            "value": "file",
+                                            "nested": [
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "semantic": "file:data"
+                                                },
+                                                {
+                                                    "name": "fileName",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "semantic": "file:name"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "required": true
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Field"
+                        },
+                        "type": "array",
+                        "label": "Body content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "type": "any",
+                        "label": "Data"
+                    },
+                    {
+                        "name": "statusCode",
+                        "type": "number",
+                        "label": "Status Code"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "type": "text",
+                                "label": "Content-Length"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "type": "text",
+                                "label": "Content-Encoding"
+                            },
+                            {
+                                "name": "content-type",
+                                "type": "text",
+                                "label": "Content-Type"
+                            },
+                            {
+                                "name": "server",
+                                "type": "text",
+                                "label": "Server"
+                            },
+                            {
+                                "name": "cache-control",
+                                "type": "text",
+                                "label": "Cache-Control"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "spec": {
+                                    "type": "text"
+                                },
+                                "type": "array",
+                                "label": "Set-Cookie"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Headers"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
